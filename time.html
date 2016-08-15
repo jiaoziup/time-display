@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>网页时间显示</title>
+    <style type="text/css">
+        div#time_display{
+            width: 600px;height: 200px;
+            border: 50px solid wheat;
+            background-color: rgba(1,1,1,0.8);
+            margin: 0 auto;
+            line-height: 50px;      /*div中单行文字垂直居中*/
+            text-align: center;
+            font-family: Arial,"幼圆";
+            font-weight: bold;
+            font-size: 40px;
+            color: lightgrey;
+        }
+        /*li{border: 5px solid blanchedalmond}*/
+        div#time_display ul#week_date{margin: 0 0 0 0;}
+        div#time_display ul#week_date li{float:left; height: 50px;list-style: none;}
+        div#time_display ul#week_date li#week{width: 150px}
+        div#time_display ul#week_date li#space{width: 150px}
+        div#time_display ul#week_date li#date{width: 250px}
+        div#time_display ul#time li{float:left;;height: 75px;font-size: 70px; width: 37px; list-style: none;margin:10px 30px auto 0px}
+        div#time_display ul#count{clear:both;margin:0 50px 0 0px;height: 50px;list-style: none;}
+    </style>
+    <script>
+        function clock(){
+            var date=new Date();
+            var year=date.getFullYear();
+            var mouth=date.getMonth();
+            mouth=mouth+1;
+            var day=date.getDate();
+            var weekday=date.getDay();
+            var week=checkWeek(weekday);
+            var h=date.getHours();
+            var m=date.getMinutes();
+            m=checkTime(m);
+            var s=date.getSeconds();
+            s=checkTime(s);
+
+            var endDate = new Date(2017,0,28);
+            var leftSecond=endDate.getTime()-date.getTime();
+            console.log(endDate.getTime());
+            var leftdays=Math.floor(leftSecond/(3600*1000*24));
+//            document.getElementById("time_display").innerHTML=h+":"+m+":"+s+" "+mouth+"/"+day+"/"+year+" "+week;
+            document.getElementById("hour_de").innerHTML=Math.floor(h/10).toString();
+            document.getElementById("hour_unit").innerHTML=(h-Math.floor(h/10)*10).toString();
+            document.getElementById("colon1").innerHTML=":";
+            document.getElementById("minute_de").innerHTML=Math.floor(m/10).toString();
+            document.getElementById("minute_unit").innerHTML=(m-Math.floor(m/10)*10).toString();
+            document.getElementById("colon2").innerHTML=":";
+            document.getElementById("second_de").innerHTML=Math.floor(s/10).toString();
+            document.getElementById("second_unit").innerHTML=(s-Math.floor(s/10)*10).toString();
+            document.getElementById("week").innerHTML=week;
+            document.getElementById("date").innerHTML=mouth+"/"+day+"/"+year;
+            document.getElementById("countdown").innerHTML="距离2017年春节还有"+leftdays+"天";
+            setTimeout("clock()",1000);
+        }
+
+        function checkTime(i){
+            if(i<10)  i="0"+i;
+            return i;
+        }
+
+        function checkWeek(j){
+            var chinaWeekday;
+            switch (j){
+                case 1:chinaWeekday='Monday';break;
+                case 2:chinaWeekday='Tuesday';break;
+                case 3:chinaWeekday='Wednesday';break;
+                case 4:chinaWeekday='Thursday';break;
+                case 5:chinaWeekday='Friday';break;
+                case 6:chinaWeekday='Saturday';break;
+                case 0:chinaWeekday='Sunday';break;
+
+            }
+            return chinaWeekday;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="time_display">
+        <ul id="week_date">
+            <li id="week"></li>
+            <li id="space"></li>
+            <li id="date"></li>
+        </ul>
+        <ul id="time">
+            <li id="hour_de"></li>
+            <li id="hour_unit"></li>
+            <li id="colon1"></li>
+            <li id="minute_de"></li>
+            <li id="minute_unit"></li>
+            <li id="colon2"></li>
+            <li id="second_de"></li>
+            <li id="second_unit"></li>
+        </ul>
+
+        <ul id="count">
+            <li id="countdown"></li>
+        </ul>
+    </div>
+    <script> clock(); </script>
+
+</body>
+</html>
